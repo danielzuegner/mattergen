@@ -10,6 +10,7 @@ from zipfile import ZipFile
 
 import ase.io
 import hydra
+from mattergen.common.utils.globals import get_device
 import numpy as np
 import torch
 from pymatgen.core import Lattice, Structure
@@ -54,7 +55,7 @@ def load_model_diffusion(
     try:
         model, incompatible_keys = DiffusionLightningModule.load_from_checkpoint_and_config(
             ckpt,
-            map_location=torch.device("cpu") if not torch.cuda.is_available() else None,
+            map_location=get_device(),
             config=cfg.lightning_module,
             strict=args.strict_checkpoint_loading,
         )

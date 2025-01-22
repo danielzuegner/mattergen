@@ -3,6 +3,7 @@
 
 from pymatgen.core.structure import Structure
 
+from mattergen.common.utils.globals import get_device
 from mattergen.evaluation.metrics.evaluator import MetricsEvaluator
 from mattergen.evaluation.reference.reference_dataset import ReferenceDataset
 from mattergen.evaluation.utils.relaxation import relax_structures
@@ -22,7 +23,7 @@ def evaluate(
         | DisorderedStructureMatcher = DefaultDisorderedStructureMatcher(),
     save_as: str | None = None,
     potential_load_path: str | None = None,
-    device: str = "cuda",
+    device: str = str(get_device()),
 ) -> dict[str, float | int]:
     """Evaluate the structures against a reference dataset.
 
